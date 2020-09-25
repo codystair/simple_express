@@ -19,7 +19,7 @@ const gitWebhookHandler = async (req, res) => {
     await client.connect();
     const db = client.db('payloads');
     const collection = db.collection('commits');
-    await collection.insertOne(req.body);
+    const data = await collection.insertOne(req.body);
     const id = data.insertedId;
   } catch (e) {
     console.error(e);
