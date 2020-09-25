@@ -34,8 +34,7 @@ app.get('/', (req, res) => {
 })
 
 app.post('/', (req, res) => {
-  // gitWebhookHandler(req, res);
-  res.sendStatus(200);
+  gitWebhookHandler(req, res);
 });
 
 app.listen(port, () => {
