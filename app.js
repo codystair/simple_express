@@ -33,8 +33,9 @@ app.get('/', (req, res) => {
   res.send('It works!')
 })
 
-app.post('/payload', (req, res) => {
-  gitWebhookHandler(req, res);
+app.post('/', (req, res) => {
+  // gitWebhookHandler(req, res);
+  res.sendStatus(200);
 });
 
 app.listen(port, () => {
