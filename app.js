@@ -24,11 +24,11 @@ const gitWebhookHandler = async (req, res) => {
     
     await pgdb.connect();
     await pgdb.query('INSERT INTO events(doc_id) VALUES($1)', [id]);
-    await pgdb.end();
   } catch (e) {
     console.error(e);
   } finally {
     await client.close();
+    await pgdb.end();
     res.sendStatus(200);
   }
 }
