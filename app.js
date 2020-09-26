@@ -33,10 +33,6 @@ const gitWebhookHandler = async (req, res) => {
   }
 }
 
-const updateSql = async (req, res) {
-
-}
-
 app.get('/', (req, res) => {
   res.send('It works!')
 })
