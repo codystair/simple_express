@@ -6,7 +6,7 @@ const { MongoClient } = require('mongodb');
 const url = 'mongodb://127.0.0.1:27017';
 const { Client } = require('pg');
 const pgdb = new Client({
-  database: 'requestbin'
+  database: 'bins'
 });
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -20,7 +20,11 @@ const gitWebhookHandler = async (req, res) => {
     const db = client.db('payloads');
     const collection = db.collection('commits');
     const data = await collection.insertOne(req.body);
-    const id = data.insertedId;
+    const id = Number(data.insertedId);
+    
+    await pgdb.connect();
+    await pgdb.query(`INSERT INTO events (doc_id) VALUES (${id});`);
+    await pgdb.end();
   } catch (e) {
     console.error(e);
   } finally {
