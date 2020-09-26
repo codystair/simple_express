@@ -5,15 +5,15 @@ const bodyParser = require('body-parser');
 const { MongoClient } = require('mongodb');
 const url = 'mongodb://127.0.0.1:27017';
 const { Client } = require('pg');
-const pgdb = new Client({
-  database: 'bins'
-});
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 const gitWebhookHandler = async (req, res) => {
   const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+  const pgdb = new Client({
+    database: 'bins'
+  });
 
   try {
     await client.connect();
@@ -31,6 +31,10 @@ const gitWebhookHandler = async (req, res) => {
     await pgdb.end();
     res.sendStatus(200);
   }
+}
+
+const updateSql = async (req, res) {
+
 }
 
 app.get('/', (req, res) => {
