@@ -20,7 +20,7 @@ const gitWebhookHandler = async (req, res) => {
     const db = client.db('payloads');
     const collection = db.collection('commits');
     const data = await collection.insertOne(req.body);
-    const id = Number(data.insertedId);
+    const id = data.insertedId;
     
     await pgdb.connect();
     await pgdb.query(`INSERT INTO events (doc_id) VALUES (${id});`);
